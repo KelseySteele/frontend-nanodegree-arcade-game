@@ -3,7 +3,7 @@ var colWidth = 101,
     rowHeight = 83,
     canvasWidth = 505
     canvasHeight = 606;
-    numEnemy = 1; //number of bugs
+    numEnemy = 3; //number of bugs
 
 
 // Enemies our player must avoid
@@ -24,7 +24,7 @@ var Enemy = function() {
     else {  //1/3 of the time start in row 4
         this.y = 229; 
     }
-    this.speed = Math.random()*200; 
+    this.speed = Math.random()*170; 
 }
 
 // Update the enemy's position, required method for game
@@ -53,29 +53,23 @@ var Player = function(){
     this.x = (canvasWidth/2) - (colWidth/2);
     this.y = 395; //initial player position
     this.score = 0; //used to keep score
-    document.getElementById("score").innerHTML = "The score is " + this.score;
+    document.getElementById("score").innerHTML = "Score: " + this.score;
 }
 
 Player.prototype.resetGame = function(){ //resets game when the player is in the water
-    this.x = (canvasWidth/2) - (colWidth/2); //initial player position calculates as 202
+    this.x = 202; //initial player position calculates as 202
     this.y = 395;//initial player position calculates as 395.
 }
 
 Player.prototype.resetButton = function(){ //resets score to 0
     player.resetGame();
     this.score = 0;
-    document.getElementById("score").innerHTML = "The score is " + this.score;
+    document.getElementById("score").innerHTML = "Score: " + this.score;
 }
 
 Player.prototype.update = function(){
-        this.collision = player.checkCollisions(); //collision processing
-    if (this.collision === true) {
-            this.score = this.score - 1;
-            document.getElementById("score").innerHTML = "The score is " + this.score;
-            player.resetGame(); //reset game if there are collisions
+        player.checkCollisions(); //collision processing
     }
-
-}
 
 Player.prototype.render = function(){
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
@@ -93,7 +87,7 @@ Player.prototype.handleInput = function(keys){
             this.y = this.y - rowHeight;//move up
             if (this.y === -20) { // Player is in the water row
                 this.score = this.score + 1;
-                document.getElementById("score").innerHTML = "The score is " + this.score;
+                document.getElementById("score").innerHTML = "Score: " + this.score;
                 this.y = -10;
             } else if (this.y < -20) { //Player is in water row, when the up button is pressed, the game resets
                 this.y = -10;
@@ -124,8 +118,8 @@ Player.prototype.checkCollisions = function(){
     this.top = this.y; //top of the player sprite
     this.left = this.x + 15;//left side of the player sprite
     this.right = this.x + 85;//right of the player sprite
-    this.sameRow = false;
-    this.sameColumn = false;
+    //this.sameRow = false;
+    //this.sameColumn = false;
 
     for (var i = 0; i < allEnemies.length; i++){
         this.bugRight = allEnemies[i].x + 101;
@@ -133,18 +127,15 @@ Player.prototype.checkCollisions = function(){
         this.bugLeft = allEnemies[i].x;
 
         if (this.top === this.bugTop) {
-        this.sameRow = true; //enemy and player are in the same row
+        //enemy and player are in the same row
+    
+            if (this.bugRight > this.left && this.right > this.bugLeft) {
+                this.score = this.score - 1;
+                document.getElementById("score").innerHTML = "Score: " + this.score;
+                player.resetGame(); 
+                //enemy and player are in the same column
+            }
         }
-
-        if (this.bugRight > this.left && this.right > this.bugLeft) {
-            this.sameColumn = true; //enemy and player are in the same column
-        }
-        if (this.sameRow === true && this.sameColumn === true) {
-       return true; //enemy and player are in the same column and row, so there is a collision
-    } else{
-        return false;
-    }
-
     }
 }
 
