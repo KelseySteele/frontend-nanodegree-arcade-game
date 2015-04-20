@@ -1,10 +1,12 @@
 frontend-nanodegree-arcade-game
 ===============================
+The game starts when you open index.html in a browser. 
+
 The goal of the game is to get as many points as possible:
 
-Player reaches the water and gets 3 points
-Player lands on a star and gets 1 point
-Player collides with a bug and loses one point
+Player reaches the water and gets 3 points.
+Player lands on a star and gets 1 point.
+Player collides with a bug and loses one point.
 
 Use the arrow keys to move the player on the screen.
 
