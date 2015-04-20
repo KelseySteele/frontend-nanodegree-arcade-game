@@ -1,9 +1,9 @@
 //global variables to easily change key parameters
 var colWidth = 101,
     rowHeight = 83,
-    canvasWidth = 505
-    canvasHeight = 606;
-    numEnemy = 3; //number of bugs
+    canvasWidth = 505,
+    canvasHeight = 606,
+    numEnemy = 3, //number of bugs
     numGems = 3; //number of stars
 
 
@@ -26,7 +26,7 @@ var Enemy = function() {
         this.y = 229; 
     }
     this.speed = Math.random()*170; 
-}
+};
 
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
@@ -40,7 +40,7 @@ Enemy.prototype.update = function(dt) {
     if (this.x > canvasWidth) {
         this.x = 0;
     }
-}
+};
 
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
@@ -55,26 +55,26 @@ var Player = function(){
     this.y = 395; //initial player position
     this.score = 0; //used to keep score
     document.getElementById("score").innerHTML = "Score: " + this.score;
-}
+};
 
 Player.prototype.resetGame = function(){ //resets game when the player is in the water
     this.x = 202; //initial player position calculates as 202
     this.y = 395;//initial player position calculates as 395.
-}
+};
 
 Player.prototype.resetButton = function(){ //resets score to 0
     player.resetGame();
     this.score = 0;
     document.getElementById("score").innerHTML = "Score: " + this.score;
-}
+};
 
 Player.prototype.update = function(){
         player.checkCollisions(); //collision processing
-    }
+    };
 
 Player.prototype.render = function(){
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-}
+};
 
 Player.prototype.handleInput = function(keys){
     switch(keys){
@@ -112,7 +112,7 @@ Player.prototype.handleInput = function(keys){
             break;
     }
 
-}
+};
 
 //check if there are collisions
 Player.prototype.checkCollisions = function(){
@@ -131,8 +131,7 @@ Player.prototype.checkCollisions = function(){
             if (this.bugRight > this.left && this.right > this.bugLeft) { //enemy and player are in the same column
                 this.score = this.score - 1; //player collides with enemy and looses one point
                 document.getElementById("score").innerHTML = "Score: " + this.score;
-                player.resetGame(); 
-
+                player.resetGame();
             }
         }
     }
@@ -171,7 +170,7 @@ Player.prototype.checkCollisions = function(){
             }
         }
     }
-}
+};
 
 var Gem = function(){ //gems our player can collect
     this.sprite = 'images/Star.png';
@@ -196,7 +195,7 @@ var Gem = function(){ //gems our player can collect
     else {  //1/3 of the time start in row 4
         this.y = 229; 
     } 
-}
+};
 
 var gems = []; //contains gems to collect
 var i;
@@ -208,11 +207,11 @@ for (i =0; i < numGems; i ++){
 
 Gem.prototype.update = function() {
     //this is updated through the engine.js file
-}
+};
 
 Gem.prototype.render = function() { //draws gem on the screen
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-}
+};
 
 
 // Now instantiate your objects.

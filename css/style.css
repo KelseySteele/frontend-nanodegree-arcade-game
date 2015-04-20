@@ -3,10 +3,11 @@ body {
 }
 
 .header{
-    margin: 0 auto 0 auto;
     font-family: sans-serif;
     color: #666666;
     width: 600px;
+    float: left;
+    margin-top: 90px;
 }
 
 .header p{
@@ -17,7 +18,7 @@ body {
 li {
     text-align: left;
     padding-left: 20px;
-    margin-left: 70px;
+    margin-left: 80px;
 }
 
 #score{
