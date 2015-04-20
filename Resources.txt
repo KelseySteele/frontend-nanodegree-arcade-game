@@ -1,0 +1,15 @@
+These are the resources that I used in order to create this project: 
+
+Websites:
+
+Udacity's Forum: http://discussions.udacity.com/c/nd001-2015-02-04/project-3
+
+A former Udacity student's project 3 game: http://jamestench.com/frogger/index.htmla
+
+W3Schools: http://www.w3schools.com/js/default.asp
+
+Mozilla Web Developer Network: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures
+
+Video:
+
+Udacity's office hours video on Engine.js (found through Udacity's forum): https://plus.google.com/u/0/events/cupbs3pbne7qkuqok4g0ldhntic?authkey=COGW25b5jbv3-AE
