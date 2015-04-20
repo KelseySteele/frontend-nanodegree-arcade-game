@@ -79,8 +79,8 @@ var Engine = (function(global) {
      * on the entities themselves within your app.js file).
      */
     function update(dt) {
-        updateEntities(dt);
-        // checkCollisions();
+        updateEntities(dt); // checkCollisions();
+        updateExtras(dt); //collectGems
     }
 
     /* This is called by the update function  and loops through all of the
@@ -97,6 +97,11 @@ var Engine = (function(global) {
         player.update();
     }
 
+    function updateExtras(dt){
+        gems.forEach(function(gem){
+            gem.update(dt);
+        });
+    }
     /* This function initially draws the "game level", it will then call
      * the renderEntities function. Remember, this function is called every
      * game tick (or loop of the game engine) because that's how games work -
@@ -138,6 +143,7 @@ var Engine = (function(global) {
 
 
         renderEntities();
+        renderExtras();
     }
 
     /* This function is called by the render function and is called on each game
@@ -155,6 +161,11 @@ var Engine = (function(global) {
         player.render();
     }
 
+    function renderExtras(){
+        gems.forEach(function(gem){
+            gem.render();
+        });
+    }
     /* This function does nothing but it could have been a good place to
      * handle game reset states - maybe a new game menu or a game over screen
      * those sorts of things. It's only called once by the init() method.
@@ -172,7 +183,8 @@ var Engine = (function(global) {
         'images/water-block.png',
         'images/grass-block.png',
         'images/enemy-bug.png',
-        'images/char-boy.png'
+        'images/char-boy.png',
+        'images/Star.png'
     ]);
     Resources.onReady(init);
 

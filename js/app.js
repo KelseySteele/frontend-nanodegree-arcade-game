@@ -1,9 +1,10 @@
-//global variables to easily call width & height of each background block
+//global variables to easily change key parameters
 var colWidth = 101,
     rowHeight = 83,
     canvasWidth = 505
     canvasHeight = 606;
     numEnemy = 3; //number of bugs
+    numGems = 3; //number of stars
 
 
 // Enemies our player must avoid
@@ -16,12 +17,12 @@ var Enemy = function() {
     this.x = 0; //enemy start at left side of canvas
     //enemies start randomly in rows 2, 3, or 4
     var randomRow = Math.random();
-    if (randomRow < .33) {  //1/3 of the time start in row 2
+    if (randomRow < .33) { //1/3 of the time start in row 2
         this.y = 63;
-    } else if (randomRow < .67) {  // 1/3 of the time start in row 3
+    } else if (randomRow < .67) { // 1/3 of the time start in row 3
         this.y = 146;
     }
-    else {  //1/3 of the time start in row 4
+    else { //1/3 of the time start in row 4
         this.y = 229; 
     }
     this.speed = Math.random()*170; 
@@ -86,7 +87,7 @@ Player.prototype.handleInput = function(keys){
         case 'up':
             this.y = this.y - rowHeight;//move up
             if (this.y === -20) { // Player is in the water row
-                this.score = this.score + 1;
+                this.score = this.score + 3;
                 document.getElementById("score").innerHTML = "Score: " + this.score;
                 this.y = -10;
             } else if (this.y < -20) { //Player is in water row, when the up button is pressed, the game resets
@@ -116,28 +117,103 @@ Player.prototype.handleInput = function(keys){
 //check if there are collisions
 Player.prototype.checkCollisions = function(){
     this.top = this.y; //top of the player sprite
-    this.left = this.x + 15;//left side of the player sprite
-    this.right = this.x + 85;//right of the player sprite
+    this.left = this.x + 15; //left side of the player sprite
+    this.right = this.x + 85; //right of the player sprite
     //this.sameRow = false;
     //this.sameColumn = false;
 
     for (var i = 0; i < allEnemies.length; i++){
-        this.bugRight = allEnemies[i].x + 101;
-        this.bugTop = allEnemies[i].y;
-        this.bugLeft = allEnemies[i].x;
-
+        this.bugRight = allEnemies[i].x + 101;//right side of the enemy sprite
+        this.bugTop = allEnemies[i].y; //top of the enemy sprite
+        this.bugLeft = allEnemies[i].x; //left side of the enemy sprite
         if (this.top === this.bugTop) {
         //enemy and player are in the same row
-    
-            if (this.bugRight > this.left && this.right > this.bugLeft) {
-                this.score = this.score - 1;
+            if (this.bugRight > this.left && this.right > this.bugLeft) { //enemy and player are in the same column
+                this.score = this.score - 1; //player collides with enemy and looses one point
                 document.getElementById("score").innerHTML = "Score: " + this.score;
                 player.resetGame(); 
-                //enemy and player are in the same column
+
+            }
+        }
+    }
+
+    for (var i = 0; i < gems.length; i ++) {
+        this.gemRight = gems[i].x +101; //right side of the gem sprite
+        this.gemTop = gems[i].y; //top of the gem sprite
+        this.gemLeft = gems[i].x;//left of the gem sprite
+        
+        if (this.top === this.gemTop) {
+        //gem and player are in the same row
+            if (this.gemRight > this.left && this.right > this.gemLeft) { //gem and player are in the same column
+                this.score = this.score + 1; //player collects gem and adds one point
+                document.getElementById("score").innerHTML = "Score: " + this.score;
+                    var randomColumn = Math.random(); //gem placed in a random column
+                    if (randomColumn < .2) {
+                        gems[i].x = 0;//code
+                    } else if (randomColumn < .4 ) {
+                        gems[i].x = 101;//code
+                    } else if (randomColumn < .6) {
+                        gems[i].x = 202;
+                    } else if (randomColumn < .8){
+                        gems[i].x = 303;
+                    } else if (randomColumn < 1){
+                        gems[i].x = 404;//code
+                    }
+                    var randomRow = Math.random(); //gem placed in a random row
+                    if (randomRow < .33) {  //1/3 of the time start in row 2
+                        gems[i].y = 63;
+                    } else if (randomRow < .67) { // 1/3 of the time start in row 3
+                        gems[i].y = 146;
+                    }
+                    else { //1/3 of the time start in row 4
+                        gems[i].y = 229; 
+                    } 
             }
         }
     }
 }
+
+var Gem = function(){ //gems our player can collect
+    this.sprite = 'images/Star.png';
+    var randomColumn = Math.random(); //gem placed in a random column
+    if (randomColumn < .2) {
+        this.x = 0;//code
+    } else if (randomColumn < .4 ) {
+        this.x = 101;//code
+    } else if (randomColumn < .6) {
+        this.x = 202;
+    } else if (randomColumn < .8){
+        this.x = 303;
+    } else if (randomColumn < 1){
+        this.x = 404;//code
+    }
+    var randomRow = Math.random(); //gem placed in a random row
+    if (randomRow < .33) {  //1/3 of the time start in row 2
+        this.y = 63;
+    } else if (randomRow < .67) {  // 1/3 of the time start in row 3
+        this.y = 146;
+    }
+    else {  //1/3 of the time start in row 4
+        this.y = 229; 
+    } 
+}
+
+var gems = []; //contains gems to collect
+var i;
+for (i =0; i < numGems; i ++){
+    var gem = new Gem;
+    gems.push(gem);
+}
+
+
+Gem.prototype.update = function() {
+    //this is updated through the engine.js file
+}
+
+Gem.prototype.render = function() { //draws gem on the screen
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+}
+
 
 // Now instantiate your objects.
 var allEnemies = [];

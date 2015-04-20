@@ -7,12 +7,20 @@
 </head>
 <body>
     <div class= "header">
-        <p>Add a point by reaching the water, loose a point by hitting a bug.</p>
-        <p id = "score"></p>
-            <script src="js/resources.js"></script>
-            <script src="js/app.js"></script>
-            <script src="js/engine.js"></script>
-        <button type="button" onclick= "player.resetButton()" value = "Restart game" > Reset game </button>
+        <h1>Kelsey's Frogger Game</h1>
+            <p>The goal of the game is to get as many points as possible:</p>
+            <ul>
+            <li>Player reaches the water and gets 3 points</li>
+            <li>Player lands on a star and gets 1 point</li>
+            <li>Player collides with a bug and loses one point</li>
+            </ul>
+            <p>Use the arrow keys to move the player on the screen.<br>
+</p>
+            <p id = "score"></p>
+            <button type="button" onclick= "player.resetButton()" value = "Restart game" > Reset game </button>
     </div>
+    <script src="js/resources.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/engine.js"></script>
 </body>
 </html>

@@ -3,10 +3,38 @@ body {
 }
 
 .header{
-    margin-right: auto;
-    margin-left: auto;
+    margin: 0 auto 0 auto;
+    font-family: sans-serif;
+    color: #666666;
+    width: 600px;
+}
+
+.header p{
+    text-align: left;
+    margin-left: 100px;
+}
+
+li {
+    text-align: left;
+    padding-left: 20px;
+    margin-left: 70px;
 }
 
 #score{
     font-size:150%;
+    color: #000000;
+}
+
+h1 {
+    color: #006666;
+    font-size: 35px;
+}
+
+button {
+    font-size: 150%;
+    color: white; 
+    background-color: #006666;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
 }
