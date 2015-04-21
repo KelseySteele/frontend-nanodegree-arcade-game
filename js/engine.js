@@ -98,8 +98,8 @@ var Engine = (function(global) {
     }
 
     function updateExtras(dt){
-        gems.forEach(function(gem){
-            gem.update(dt);
+        stars.forEach(function(gem){
+            star.update(dt);
         });
     }
     /* This function initially draws the "game level", it will then call
@@ -162,8 +162,8 @@ var Engine = (function(global) {
     }
 
     function renderExtras(){
-        gems.forEach(function(gem){
-            gem.render();
+        stars.forEach(function(star){
+            star.render();
         });
     }
     /* This function does nothing but it could have been a good place to
